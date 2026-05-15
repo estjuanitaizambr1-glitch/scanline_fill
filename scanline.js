@@ -343,10 +343,6 @@ class ScanlineFill {
  * ============================================================
  */
 
-// Obtener canvas
-const canvas = document.getElementById("canvas");
-
-// Contexto 2D
 const ctx = canvas.getContext("2d");
 
 // Crear instancia
