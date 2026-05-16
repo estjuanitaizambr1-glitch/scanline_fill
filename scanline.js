@@ -174,8 +174,8 @@ class ScanlineFill {
 
             if (p1.y < p2.y) {
 
-                ymin = p1.y;
-                ymax = p2.y;
+                ymin = Math.round(p1.y);
+                ymax = Math.round(p2.y);
 
                 xAtYmin = p1.x;
 
@@ -184,8 +184,8 @@ class ScanlineFill {
 
             } else {
 
-                ymin = p2.y;
-                ymax = p1.y;
+                ymin = Math.round(p2.y);
+                ymax = Math.round(p1.y);
 
                 xAtYmin = p2.x;
 
@@ -211,9 +211,8 @@ class ScanlineFill {
 
         const ys = polygon.map(p => p.y);
 
-        const minY = Math.min(...ys);
-        const maxY = Math.max(...ys);
-
+        const minY = Math.round(Math.min(...ys));
+        const maxY = Math.round(Math.max(...ys));
         // ====================================================
         // 3. ACTIVE EDGE TABLE (AET)
         // ====================================================
