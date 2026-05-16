@@ -481,16 +481,10 @@ document.getElementById("btnLimpiar").addEventListener("click", function() {
     scanline.fill(polygon, "#FFB6C1");
     ctx.stroke();
 });
+const polygonOriginal = polygon.map(p => ({ ...p }));
 
-// Botón agregar vértice (agrega uno aleatorio dentro del canvas)
-document.getElementById("btnAgregarVertice").addEventListener("click", function() {
-    const nuevoVertice = {
-        x: Math.floor(Math.random() * 500) + 100,
-        y: Math.floor(Math.random() * 350) + 50
-    };
-    polygon.push(nuevoVertice);
-
-    // Redibujar automáticamente
+// Función reutilizable de dibujo
+function dibujar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     ctx.moveTo(polygon[0].x, polygon[0].y);
@@ -502,4 +496,58 @@ document.getElementById("btnAgregarVertice").addEventListener("click", function(
     ctx.lineWidth = 3;
     scanline.fill(polygon, "#FFB6C1");
     ctx.stroke();
+}
+function ordenarVertices() {
+    const cx = polygon.reduce((s, p) => s + p.x, 0) / polygon.length;
+    const cy = polygon.reduce((s, p) => s + p.y, 0) / polygon.length;
+    polygon.sort((a, b) => 
+        Math.atan2(a.y - cy, a.x - cx) - Math.atan2(b.y - cy, b.x - cx)
+    );
+}
+
+// Botón limpiar y redibujar
+document.getElementById("btnLimpiar").addEventListener("click", function() {
+    polygon.length = 0;
+    polygonOriginal.forEach(p => polygon.push({ ...p })); // restaurar original
+    dibujar();
+});
+
+// Botón agregar vértice
+document.getElementById("btnAgregarVertice").addEventListener("click", function() {
+    polygon.push({
+        x: Math.floor(Math.random() * 500) + 100,
+        y: Math.floor(Math.random() * 350) + 50
+    });
+    ordenarVertices(); // ordenar antes de dibujar
+    dibujar();
+});
+document.getElementById("btnAgregarVertice").addEventListener("click", function() {
+    // Elegir un lado aleatorio del polígono
+    const i = Math.floor(Math.random() * polygon.length);
+    const p1 = polygon[i];
+    const p2 = polygon[(i + 1) % polygon.length];
+
+    // Punto medio entre los dos vértices del lado
+    const mx = (p1.x + p2.x) / 2;
+    const my = (p1.y + p2.y) / 2;
+
+    // Calcular el centroide
+    const cx = polygon.reduce((s, p) => s + p.x, 0) / polygon.length;
+    const cy = polygon.reduce((s, p) => s + p.y, 0) / polygon.length;
+
+    // Empujar el punto medio HACIA AFUERA del centroide
+    const dist = 40; // cuánto sobresale el nuevo vértice
+    const dx = mx - cx;
+    const dy = my - cy;
+    const len = Math.sqrt(dx * dx + dy * dy);
+
+    const nuevoVertice = {
+        x: Math.round(mx + (dx / len) * dist),
+        y: Math.round(my + (dy / len) * dist)
+    };
+
+    // Insertar en la posición correcta (entre i e i+1)
+    polygon.splice(i + 1, 0, nuevoVertice);
+
+    dibujar();
 });
