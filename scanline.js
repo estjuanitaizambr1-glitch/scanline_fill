@@ -384,7 +384,7 @@ for (let i = 1; i < polygon.length; i++) {
 ctx.closePath();
 
 ctx.strokeStyle = "red";
-ctx.lineWidth = 2;
+ctx.lineWidth = 3;
 scanline.fill(polygon, "skyblue");
 ctx.stroke();
 
