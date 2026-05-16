@@ -455,3 +455,13 @@ ctx.stroke();
  * ============================================================
  */
 console.log("SCANLINE FUNCIONANDO");
+canvas.addEventListener("mousemove", function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.round(e.clientX - rect.left);
+    const y = Math.round(e.clientY - rect.top);
+    document.getElementById("coords").textContent = `X: ${x}   Y: ${y}`;
+});
+
+canvas.addEventListener("mouseleave", function() {
+    document.getElementById("coords").textContent = "X: 0   Y: 0";
+});
