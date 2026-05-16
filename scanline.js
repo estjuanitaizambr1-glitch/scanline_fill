@@ -385,13 +385,14 @@ ctx.closePath();
 
 ctx.strokeStyle = "red";
 ctx.lineWidth = 2;
+scanline.fill(polygon, "skyblue");
 ctx.stroke();
 
 // ============================================================
 // APLICAR SCANLINE FILL
 // ============================================================
 
-scanline.fill(polygon, "skyblue");
+
 
 /**
  * ============================================================
