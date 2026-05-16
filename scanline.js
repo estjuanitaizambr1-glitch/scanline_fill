@@ -465,3 +465,41 @@ canvas.addEventListener("mousemove", function(e) {
 canvas.addEventListener("mouseleave", function() {
     document.getElementById("coords").textContent = "X: 0   Y: 0";
 });
+
+// Botón limpiar y redibujar
+document.getElementById("btnLimpiar").addEventListener("click", function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.moveTo(polygon[0].x, polygon[0].y);
+    for (let i = 1; i < polygon.length; i++) {
+        ctx.lineTo(polygon[i].x, polygon[i].y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = "#FF69B4";
+    ctx.lineWidth = 3;
+    scanline.fill(polygon, "#FFB6C1");
+    ctx.stroke();
+});
+
+// Botón agregar vértice (agrega uno aleatorio dentro del canvas)
+document.getElementById("btnAgregarVertice").addEventListener("click", function() {
+    const nuevoVertice = {
+        x: Math.floor(Math.random() * 500) + 100,
+        y: Math.floor(Math.random() * 350) + 50
+    };
+    polygon.push(nuevoVertice);
+
+    // Redibujar automáticamente
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.moveTo(polygon[0].x, polygon[0].y);
+    for (let i = 1; i < polygon.length; i++) {
+        ctx.lineTo(polygon[i].x, polygon[i].y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = "#FF69B4";
+    ctx.lineWidth = 3;
+    scanline.fill(polygon, "#FFB6C1");
+    ctx.stroke();
+});
