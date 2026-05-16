@@ -1,3 +1,9 @@
+ window.onload = function () {
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+ };
 /**
  * ============================================================
  * ALGORITMO SCANLINE FILL (RELLENO POR LÍNEAS DE BARRIDO)
