@@ -383,9 +383,9 @@ for (let i = 1; i < polygon.length; i++) {
 
 ctx.closePath();
 
-ctx.strokeStyle = "red";
+ctx.strokeStyle = "#FF69B4";
 ctx.lineWidth = 3;
-scanline.fill(polygon, "skyblue");
+scanline.fill(polygon, "#FFB6C1");
 ctx.stroke();
 
 // ============================================================
