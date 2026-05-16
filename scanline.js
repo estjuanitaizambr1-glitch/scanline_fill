@@ -312,7 +312,7 @@ class ScanlineFill {
                 this.ctx.fillRect(
                     xStart,
                     y,
-                    xEnd - xStart + 1,
+                    xEnd - xStart,
                     1
                 );
             }
